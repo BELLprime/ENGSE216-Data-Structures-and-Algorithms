@@ -1,12 +1,14 @@
 package Datastructure;
 public class Main {
     public static void main(String[] args) {
-        Stack s = new Stack();
-        s.push(1);
-        s.push(2);
-        s.push(3);
-        s.push(4);
-        System.out.println("Delete : "+ s.pop());
-        s.showAll();
+        Queue q = new Queue(6);
+        q.enqueue(2);
+        q.enqueue(3);
+        q.enqueue(4);
+        System.out.println("data size : " + q.size());
+        q.showQueue();
+        q.dequeue();
+        q.dequeue();
+        q.showQueue();
     }
 }
