@@ -75,7 +75,7 @@ public class Main {
     	        if (inputInt >= 1 && inputInt <= sizeData) {
 					target = inputInt;
 					check = false;
-    	        } else {System.out.println("Range is out of data size.");}
+    	        } else {System.out.println(inputInt+" is out of Range.");}
     	    } catch (NumberFormatException e) {System.out.println("Input numeric only."); }
     	}
     	return target;
