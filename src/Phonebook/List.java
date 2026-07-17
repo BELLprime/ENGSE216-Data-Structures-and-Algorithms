@@ -12,10 +12,19 @@ public class List {
     }
     //-------------------------------------funtion
     public void add (String fname, String lname, String tel) {
-        if (!isFull()) {
-            db.set(count,new Contact(fname, lname, tel));
-            count++;
-        } else System.out.println("The Array is Full.");
+        try {
+            if (!isFull()) {
+                for (int i=0; i<count; i++) {         
+                    if (tel.equals(db.getIndexC(i).getTel())) {
+                        throw new Exception("This Tel have in data already.");
+                    }
+                }
+                db.set(count,new Contact(fname, lname, tel));
+                count++;
+            } else System.out.println("The Array is Full.");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
     public void delete (int targetIdex) {
         if (!isEmpty()) {
@@ -24,7 +33,7 @@ public class List {
                     db.set(i, db.getIndexC(i+1));//move
                 }
                 this.count--;
-            } else System.out.println("Invalid index. Cannot delete.");
+            } 
         }
     }
     public void edit (int indexs ,String fname, String lname, String tel) {
@@ -33,18 +42,16 @@ public class List {
             c.setFname(fname);
             c.setLname(lname);
             c.setTel(tel);
-        } else System.out.println("These index out of range the array.");
+        } else System.out.println("Data is empty,please add the contact first.");
     }
     public void insert (int indexs,String fname, String lname, String tel) {
         if (!isFull()) {
             for (int i=count-1; i>=indexs;i--) { //move position backward
                 db.set(i + 1, db.getIndexC(i));
-            }
+            } System.out.println("The Array is Full.");
             db.set(indexs, new Contact(fname, lname, tel));
             count++;
-        } else {
-            System.out.println("Invalid index. Cannot insert.");
-        }
+        } 
     }
     public void sort () { //Bubble sort  
         Contact temp;
