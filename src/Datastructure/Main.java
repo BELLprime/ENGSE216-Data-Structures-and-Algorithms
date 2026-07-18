@@ -6,23 +6,16 @@ public class Main {
         q.enqueue(5);
         q.enqueue(6);
         q.enqueue(7);
-        q.showforloop();
-        System.out.println("Peek: " + q.currentQueue());
-        System.out.println("===================================");
-        System.out.println("Dequeue: " + q.dequeue()); 
-        System.out.println("Dequeue: " + q.dequeue()); 
-        q.showforloop();
-        System.out.println("Peek: " + q.currentQueue());
-        System.out.println("===================================");
-        q.enqueue(8);
-        q.showforloop();
-        System.out.println("Peek: " + q.currentQueue());
-        System.out.println("===================================");
-        System.out.println("Dequeue: " + q.dequeue()); 
-        q.showforloop();
-        System.out.println("Peek: " + q.currentQueue());
+        q.showActive();
+        q.showVal();
         System.out.println("===================================");
 
-
+        System.out.println("Dequeue: " + q.dequeue()); 
+        System.out.println("Dequeue: " + q.dequeue()); 
+        System.out.println("Dequeue: " + q.dequeue()); 
+        q.enqueue(2);
+        q.showActive();
+        q.showVal();
+    
     }
 }
