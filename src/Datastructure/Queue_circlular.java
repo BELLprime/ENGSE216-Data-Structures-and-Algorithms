@@ -31,7 +31,10 @@ public class Queue_circlular {
         int data=-1;
         if (!isEmpty()) {
             data = arr[this.front];
-            front=(front+1)%arr.length; 
+            if (front ==rear) {//force reset to empty.
+                this.front =-1;
+                this.rear=-1;
+            } else front=(front+1)%arr.length;
             count--;
         } else System.out.print("Queue is empty,You can't dequeue.");
         return data;
@@ -40,16 +43,32 @@ public class Queue_circlular {
     boolean isEmpty(){return this.front==-1&&this.rear==-1;}
     boolean isFull(){return count == arr.length;}
     int size (){return this.arr.length;}
-    public int currentQueue() 
+    public int peek() 
     {
-        if (!isEmpty()) {return arr[front];} else {
+        if (!isEmpty()) {return arr[front];} 
+        else {
             System.out.println("Queue is empty. No peek value.");
             return -1; 
         }
     }
-    void showforloop () {
+    //display
+    void showVal() {
+        System.out.println("CurrentFront: " + this.front);
+        System.out.println("CurrentRear: " + this.rear);
+        System.out.println("CurrentCount: " + this.count);
+    }
+    void showArr() {
+        System.out.print("arr[" + size() + "] =");
         for(int i=0;i<arr.length;i++) {
-            System.out.println( "arr " + arr[i] );
+            System.out.print( " " + arr[i] );
         }
+        System.out.println("");
+    }
+    void showActive() {
+        System.out.print("active(" + count + ") =");
+        for (int i = 0; i < count; i++) {
+            System.out.print(" " + arr[(front + i) % arr.length]);
+        }
+    System.out.println();
     }
 }
