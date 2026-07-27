@@ -6,16 +6,17 @@ public class Main {
         q.enqueue(5);
         q.enqueue(6);
         q.enqueue(7);
+        q.showArr();
         q.showActive();
-        q.showVal();
+
         System.out.println("===================================");
 
         System.out.println("Dequeue: " + q.dequeue()); 
         System.out.println("Dequeue: " + q.dequeue()); 
         System.out.println("Dequeue: " + q.dequeue()); 
         q.enqueue(2);
+        q.showArr();
         q.showActive();
-        q.showVal();
     
     }
 }
