@@ -2,60 +2,51 @@ package Datastructure;
 
 public class Queue_circlular {
     int arr[] ;
-    int front,rear,count;
+    int front,rear;
     public Queue_circlular() {
         this(5);
     }
     public Queue_circlular(int size) {
         this.arr = new int[size];
-        this.count=0;
-        this.front=-1;
-        this.rear=-1;
+        this.front=this.rear=-1; //for indicate in case empty
     }
-    void enqueue(int item) {  
-        if (!isFull()) {
-            if (isEmpty()) {//work at init(first time)  
-                this.front=0;
-                this.rear=0;
-                arr[rear]=item;
-                count++;
-            } else {//after inti
-                rear=(rear+1)%arr.length;  //0%5=0  1%5=1   2%5=2  3%5=3  4%5=4  5%5=0-->[new index]  
-                //rear start at 1  
-                arr[rear]=item;
-                count++;
+    void enqueue (int item){ //increment rear
+        if (isEmpty()) {
+            this.front=0;
+            this.rear=0;
+            arr[rear]=item;
+        } else {
+            rear=(rear+1)%size(); //++
+            if (isFull()){
+                System.out.println("Queue is Full, "+item+" will not collect." );
+                // return to previous value
+                rear = (rear - 1 + size()) % size(); //-- not change
+            } else {
+                arr[rear]=item;//store
             }
-        } else System.out.println("Queue is full," + item + " will not collect.");
+        }
     }
-    int dequeue() {
+    int dequeue () { //increment front
         int data=-1;
         if (!isEmpty()) {
-            data = arr[this.front];
-            if (front ==rear) {//force reset to empty.
-                this.front =-1;
-                this.rear=-1;
-            } else front=(front+1)%arr.length;
-            count--;
-        } else System.out.print("Queue is empty,You can't dequeue.");
+            data = arr[front];
+            if (isFull()) {
+                  // Reset front and rear to -1 to indicate an empty queue
+                front = -1;
+                rear = -1;  
+            } else front = (front + 1) % size(); //f++  
+        } 
+       else System.out.println("Queue is empty. Cannot dequeue.");
         return data;
     }
     //check
-    boolean isEmpty(){return this.front==-1&&this.rear==-1;}
-    boolean isFull(){return count == arr.length;}
-    int size (){return this.arr.length;}
-    public int peek() 
-    {
-        if (!isEmpty()) {return arr[front];} 
-        else {
-            System.out.println("Queue is empty. No peek value.");
-            return -1; 
-        }
-    }
+    boolean isFull() {return front==rear;}
+    boolean isEmpty() {return front==-1&&rear==-1;}
+    int size() {return arr.length; }
     //display
     void showVal() {
         System.out.println("CurrentFront: " + this.front);
         System.out.println("CurrentRear: " + this.rear);
-        System.out.println("CurrentCount: " + this.count);
     }
     void showArr() {
         System.out.print("arr[" + size() + "] =");
@@ -63,12 +54,6 @@ public class Queue_circlular {
             System.out.print( " " + arr[i] );
         }
         System.out.println("");
-    }
-    void showActive() {
-        System.out.print("active(" + count + ") =");
-        for (int i = 0; i < count; i++) {
-            System.out.print(" " + arr[(front + i) % arr.length]);
-        }
-    System.out.println();
+        showVal();
     }
 }

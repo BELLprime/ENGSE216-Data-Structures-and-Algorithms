@@ -13,7 +13,7 @@ public class Queue_circlularEZ {
         this.rear=-1;
     }
     void enqueue(int item) {  
-        if (!isFull()) {
+        if (!isFull()) { 
             rear=(rear+1)%arr.length;  //0%5=0  1%5=1   2%5=2  3%5=3  4%5=4  5%5=0-->[new index]   
             arr[rear]=item;
             count++;
