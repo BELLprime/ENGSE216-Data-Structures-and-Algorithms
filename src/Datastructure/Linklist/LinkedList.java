@@ -1,5 +1,6 @@
 package Datastructure.Linklist;
 //no array
+
 public class LinkedList {
     int count;
     Node head,tail,travel;
@@ -11,6 +12,7 @@ public class LinkedList {
             Node nn =new Node(item);
             nn.link = head;
             head=nn;
+            count++;
         }
     }
     void add(int item) { //NO.1
@@ -21,6 +23,18 @@ public class LinkedList {
         }else {
             tail.link=nn;// link
             tail=nn;  //ขยับ
+        }
+        count++;
+    }
+    void addAfter(int insertafter,int itme) {
+        travel=head;
+        for (int i=0;i<count;i++) {
+            if (travel.info==insertafter) {
+                Node nn=new Node(itme);
+                nn.link = travel.link;
+                travel.link = nn;
+            } 
+            travel=travel.link;//move
         }
         count++;
     }
