@@ -5,16 +5,11 @@ public class LinkedList {
     int count;
     Node head,tail,travel;
 
-    void addfirst(int item){ //NO.2
-        if (count==0){
-            add(item);
-        } else {
-            Node nn =new Node(item);
-            nn.link = head;//link->next to node
-            head=nn;//move head
-            count++;
-        }
+    public LinkedList(){
+        this.count=0;
+        this.head=tail=travel=null;
     }
+    
     void add(int item) { //NO.1
         Node nn =new Node(item);
         if (count==0) {
@@ -25,6 +20,16 @@ public class LinkedList {
             tail=nn;  //ขยับ
         }
         count++;
+    }
+        void addfirst(int item){ //NO.2
+        if (count==0){
+            add(item);
+        } else {
+            Node nn =new Node(item);
+            nn.link = head;//link->next to node
+            head=nn;//move head
+            count++;
+        }
     }
     void addAfter(int insertafter,int itme) {
         travel=head;
@@ -42,25 +47,27 @@ public class LinkedList {
             travel=travel.link;//next node
         }
     }
-    //del
+    //delete
     public Node delete() { //ต้องเอาไป check ข้างนอกต่อ 
-        if (count==0) {
-            System.out.println("There's noting to delete.");
-            return null;
-        } 
         Node temp = tail;
-        if (count==1) {
+        Node pre=null;
+        travel=head;
+        if (travel==null) {
+            System.out.println("There's noting to delete.");
+            temp=null;
+        } else if (count==1) {
             head=null;
             tail=null;
+            count--;
         } else {
-            travel=head;                                                  //head,travel          tail
-            for(int i=0;i<count-2;i++){//get previous of the last node (-2)  [n1]       [n2]     [n3]
-                travel=travel.link; //i=0 -> travel=node2
+            while(travel.link!=null) {
+                pre=travel;
+                travel=travel.link;
             }
             tail=travel;
-            travel.link=null;
+            pre.link=null;
+            count--;
         }
-        count--;
         return temp;
     }
     public Node deleteFirst() {
@@ -75,28 +82,30 @@ public class LinkedList {
         } return temp;
     }
     public Node deleteAfter(int itemAfter) {
-        Node temp=null;
         travel=head;
-        while(travel!=null ){
-            if (travel.info==itemAfter) {
-                temp=travel.link;
-                travel.link=temp.link;
-                if (travel==tail) {
+        Node temp=null;
+        while (travel!=null) {
+            if (travel.info==itemAfter && travel.link!=null) { 
+                temp=travel.link;//node that want to remove 
+                travel.link=temp.link;//เอาlinkของ travel ไป connect กับ link ของ node that node (ข้าม that node ถ้า empty ก็ชี้null แทน )
+                if (temp==tail){
                     tail=travel;
                 }
                 count--;
                 break;
+            } else if (travel.info==itemAfter && travel.link==null) {
+                throw new IllegalArgumentException("Del Fail : After "+itemAfter+" is null.");
             }
-            travel=travel.link; 
+            travel=travel.link;
         }
         return temp;
     }
     //display 
     void showALl (){
-        System.out.println("=========================");
+        System.out.println("=========================\nInfo node:");
         travel=head;
-        for(int i=0;i<count;i++){
-            System.out.print(travel.info + " ");
+        while(travel!=null) {
+            System.out.print(travel.info+" ");
             travel=travel.link;
         }
         System.out.println("");
