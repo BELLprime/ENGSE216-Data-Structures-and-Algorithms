@@ -1,4 +1,4 @@
-package Datastructure.Linklist;
+package Datastructure.LinkedList_Singly;
 
 public class Node {
     int info;

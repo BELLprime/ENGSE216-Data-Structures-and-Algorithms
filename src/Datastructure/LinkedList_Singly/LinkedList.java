@@ -1,4 +1,4 @@
-package Datastructure.Linklist;
+package Datastructure.LinkedList_Singly;
 //no array
 
 public class LinkedList {
