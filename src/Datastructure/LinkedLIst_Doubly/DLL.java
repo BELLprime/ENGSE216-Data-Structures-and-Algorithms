@@ -65,9 +65,61 @@ public class DLL {
 
         
     }
-    //front_remove() {}
-    //behide_remove() {}
-    //remove() {} 
+    DNode remove() {
+        if (head == null) {
+            throw new IllegalStateException("Linked list is empty.");
+        }
+        DNode temp = tail;
+        if (count == 1) {head=tail=null;} 
+        else {
+            tail = tail.Llink;
+            tail.Rlink = null;
+        }
+        count--;
+        return temp;
+    }
+    DNode front_remove(int targetItem) {
+        DNode temp=null;
+        travel=head;
+        while (travel!=null){ //find target
+            if (travel.info==targetItem) {break;}
+            travel=travel.Rlink;
+        }
+        if (travel!=head) {
+            temp=travel.Llink; //collect and return
+            if (temp==head) { //case temp=head
+                head=temp.Rlink; //move head
+                temp.Rlink=travel.Llink=null;
+            } else { 
+                travel.Llink=temp.Llink;
+                temp.Llink.Rlink=travel;
+                temp.Llink=temp.Rlink=null;
+            } 
+            count--;
+        }
+        return temp;
+    }
+    DNode behide_remove(int targetItem) {
+        DNode temp=null;
+        travel=head;
+        while(travel!=null) {//find targeItem
+            if (travel.info==targetItem) {break;}
+            travel=travel.Rlink;
+        }
+        if (travel!=tail) {
+            temp=travel.Rlink; //collect and return
+            if (temp==tail) {
+                tail=tail.Llink;
+                temp.Llink=travel.Rlink=null;
+            } else {
+                temp.Rlink.Llink=travel;
+                travel.Rlink=temp.Rlink;
+                temp.Llink=temp.Rlink=null;
+            }
+            count--;
+        }
+        return temp;
+    }
     void showAll() {
         System.out.print("=========================\nInfo node:");
         travel=head;
@@ -78,9 +130,11 @@ public class DLL {
         showval();
     }
     void showval(){
-        System.out.println("\nCurrent head: "+this.head.info +
+        if (head!=null&&tail!=null) {
+            System.out.println("\nCurrent head: "+this.head.info +
                            "\nCurrent tail: "+this.tail.info +
                            "\nCurrent count: "+this.count);
+        }
     }
     //searc() {}
 }
